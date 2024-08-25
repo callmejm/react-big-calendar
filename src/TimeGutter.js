@@ -72,9 +72,11 @@ const TimeGutter = ({
       if (idx) return null // don't return the first (0) idx
 
       const isNow = slotMetrics.dateIsInGroup(getNow(), idx)
+      const outputTime = localizer.format(value, 'h:mm a');
+      const is30 = outputTime.includes(":30");
       return (
-        <span className={clsx('rbc-label', isNow && 'rbc-now')}>
-          {localizer.format(value, 'timeGutterFormat')}
+        <span className={clsx('rbc-label', isNow && 'rbc-now', is30 && 'is-30')}>
+          {is30 ? `30` : outputTime}
         </span>
       )
     },

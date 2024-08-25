@@ -18,6 +18,7 @@
   "main": "lib/index.js",
   "module": "dist/react-big-calendar.esm.js",
   "style": "lib/css/react-big-calendar.css",
+  "private":true,
   "files": [
     "lib/",
     "dist/",

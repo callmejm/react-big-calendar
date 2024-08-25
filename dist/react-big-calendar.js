@@ -42316,13 +42316,13 @@
       if (idx) return null; // don't return the first (0) idx
 
       var isNow = slotMetrics.dateIsInGroup(getNow(), idx);
-      var outputTime = localizer.format(value, 'h a');
+      var outputTime = localizer.format(value, 'h:mm a');
       var is30 = outputTime.includes(":30");
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
         className: clsx('rbc-label', isNow && 'rbc-now', is30 && 'is-30')
-      }, is30 ? "30" : outputTime), /*#__PURE__*/React.createElement("div", {
+      }, is30 ? "30" : outputTime.replace(":00", "")), /*#__PURE__*/React.createElement("div", {
         className: clsx('rbc-label-m', isNow && 'rbc-now-m', is30 && 'is-30')
-      }, is30 ? "30" : outputTime));
+      }, is30 ? "30" : outputTime.replace(":00", "")));
     }, [slotMetrics, localizer, getNow]);
     return /*#__PURE__*/React.createElement(TimeGutterWrapper, {
       slotMetrics: slotMetrics

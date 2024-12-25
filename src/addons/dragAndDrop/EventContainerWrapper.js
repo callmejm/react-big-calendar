@@ -154,18 +154,6 @@ class EventContainerWrapper extends React.Component {
     return end
   }
 
-  handleDragOverFromOutside = (point, bounds) => {
-    const { slotMetrics } = this.props
-
-    const start = slotMetrics.closestSlotFromPoint(
-      { y: point.y, x: point.x },
-      bounds
-    )
-    const end = slotMetrics.nextSlot(start)
-    const event = this.context.draggable.dragFromOutsideItem()
-    this.update(event, slotMetrics.getRange(start, end, false, true))
-  }
-
   updateParentScroll = (parent, node) => {
     setTimeout(() => {
       const draggedEl = qsa(node, '.rbc-addons-dnd-drag-preview')[0]
@@ -180,8 +168,8 @@ class EventContainerWrapper extends React.Component {
             parent,
             Math.min(
               draggedEl.offsetTop -
-                parent.offsetHeight +
-                draggedEl.offsetHeight,
+              parent.offsetHeight +
+              draggedEl.offsetHeight,
               parent.scrollHeight
             )
           )

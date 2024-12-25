@@ -118,12 +118,40 @@ class EventContainerWrapper extends React.Component {
       boundaryBox
     )
 
+    const end = this._calculateDnDEnd(start)
+
     this.context.draggable.onDropFromOutside({
       start,
-      end: slotMetrics.nextSlot(start),
+      end,
       allDay: false,
       resource,
     })
+  }
+
+  handleDragOverFromOutside = (point, bounds) => {
+    const { slotMetrics } = this.props
+
+    const start = slotMetrics.closestSlotFromPoint(
+      { y: point.y, x: point.x },
+      bounds
+    )
+    const end = this._calculateDnDEnd(start)
+    const event = this.context.draggable.dragFromOutsideItem()
+    this.update(event, slotMetrics.getRange(start, end, false, true))
+  }
+
+  _calculateDnDEnd = (start) => {
+    const { accessors, slotMetrics, localizer } = this.props
+    const event = this.context.draggable.dragFromOutsideItem()
+    const { duration: eventDuration } = eventTimes(event, accessors, localizer)
+
+    let end = slotMetrics.nextSlot(start)
+    const eventHasDuration = !isNaN(eventDuration)
+    if (eventHasDuration) {
+      const eventEndSlot = localizer.add(start, eventDuration, 'milliseconds')
+      end = new Date(Math.max(eventEndSlot, end))
+    }
+    return end
   }
 
   handleDragOverFromOutside = (point, bounds) => {
@@ -159,7 +187,7 @@ class EventContainerWrapper extends React.Component {
           )
         }
       }
-    })
+    },100)
   }
 
   _selectable = () => {

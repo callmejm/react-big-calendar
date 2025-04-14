@@ -24,7 +24,7 @@ export default class TimeSlotGroup extends Component {
               <div
                 {...slotProps}
                 className={clsx('rbc-time-slot', slotProps.className)}
-              data-value={value} data-rss={resource}>
+                data-test={`123`}>
                 {renderSlot && renderSlot(value, idx)}
               </div>
             </Wrapper>

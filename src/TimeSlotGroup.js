@@ -23,8 +23,8 @@ export default class TimeSlotGroup extends Component {
             <Wrapper key={idx} value={value} resource={resource}>
               <div
                 {...slotProps}
-                className={clsx('rbc-time-slot', slotProps.className)}
-                data-test={`123`}>
+                className={clsx('rbc-time-slot', slotProps.className, `abc123`)}
+              >
                 {renderSlot && renderSlot(value, idx)}
               </div>
             </Wrapper>
